@@ -24,4 +24,14 @@ public class StudentService {
             () -> new EntityNotFoundException("Aluno não cadastrado")
         );
     }
+
+    public void deleteStudentById(int id){
+        if(this.studentRepository.existsById(id)){
+            this.studentRepository.deleteById(id);
+        }else{
+            throw new EntityNotFoundException("Aluno não cadastrado");
+        }
+    }
+
+    
 }
