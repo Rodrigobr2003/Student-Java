@@ -2,7 +2,9 @@ package com.fatec.student.resources;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,18 +25,19 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public List<Student> getStudents(){
-        return studentService.getStudents();
+    public ResponseEntity<List<Student>> getStudents(){
+        return ResponseEntity.ok(studentService.getStudents());
     }
 
     @GetMapping("{id}")
-    public Student getStudentById(@PathVariable int id){
-        return studentService.getStudentById(id);
+    public ResponseEntity<Student> getStudentById(@PathVariable int id){
+        return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
     @DeleteMapping("{id}")
-    public void deletStudentById(@PathVariable int id){
+    public ResponseEntity<Void> deletStudentById(@PathVariable int id){
         this.studentService.deleteStudentById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping
